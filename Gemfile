@@ -69,7 +69,7 @@ gem 'hirb'
 gem 'hirb-unicode'
 gem 'devise'
 gem 'kaminari'
-gem 'bootstrap-sass', '3.3.6'
+gem 'bootstrap-sass', '3.4.1'
 gem 'jquery-rails'
 gem 'bootstrap-material-design', '0.1.4'
 gem "font-awesome-rails"

@@ -1,5 +1,4 @@
 class TweetsController < ApplicationController
-
     before_action :move_to_index, except: [:index,:show]
 
     def index
@@ -10,7 +9,7 @@ class TweetsController < ApplicationController
     end
 
     def create
-        Tweet.create(text: tweet_params[:text], user_id: current_user.id)
+        Tweet.create(text: tweet_params[:text], user_id: current_user.id, likes_count: 0,unlikes_count: 0)
     end
 
     def destroy
@@ -18,17 +17,6 @@ class TweetsController < ApplicationController
         if tweet.user_id == current_user.id
           tweet.destroy
     end
-    end
-
-    def edit
-        @tweet = Tweet.find(params[:id])
-    end
-
-    def update
-        tweet=Tweet.find(params[:id])
-        if tweet.user_id == current_user.id
-        tweet.update(tweet_params)
-        end
     end
 
     def show

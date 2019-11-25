@@ -1,7 +1,9 @@
 <div class="contents row">
-  <p><%= @nickname %>さんの投稿一覧</p>
+  <h2><%= @nickname %>さんの投稿一覧</h2>
+
   <% @tweets.each do |tweet| %>
     <%= render partial: "tweets/tweet", locals: { tweet: tweet } %>
   <% end %>
+
   <%= paginate(@tweets) %>
 </div>

@@ -1,24 +1,46 @@
-<div class="content_post" >
-    <% if user_signed_in? && current_user.id == tweet.user_id %>
-      <div class="more">
-        <span><%= image_tag 'arrow_top.png' %></span>
-        <ul class="more_list">
+<div class="content_post well" >
+    <span class="name">
+      <a href="/users/<%= tweet.user_id %>">
+        <h4><%= tweet.user.nickname %></h4>
+      </a>
+    </span>
+    <%= simple_format(tweet.text) %>
+      <div class="btn-group">
+        <button class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+        <%= image_tag 'option.png', :size => '30x30' %>
+        </button>
+        <ul class="dropdown-menu">
           <li>
             <%= link_to '詳細', "/tweets/#{tweet.id}", method: :get %>
           </li>
-          <li>
-              <%= link_to '編集', "/tweets/#{tweet.id}/edit", method: :get %>
-          </li>
+          <% if user_signed_in? && current_user.id == tweet.user_id %>
           <li>
             <%= link_to '削除', "/tweets/#{tweet.id}", method: :delete %>
-         </li>
+         </li><% end %>
         </ul>
+
+        <% if user_signed_in? %>
+        <% if Like.find_by(user_id: current_user.id, tweet_id: tweet.id) %>
+        <%= link_to("/likes/#{tweet.id}/destroy", {method: "post"}) do %>
+          <span class="fa fa-thumbs-up like-btn-unlike">pojitive</span>
+        <% end %>
+        <% else %>
+        <%= link_to("/likes/#{tweet.id}/create", {method: "post"}) do %>
+          <span class="fa fa-thumbs-up like-btn"></span>
+        <% end %>
+        <% end %><%= tweet.likes_count %>
+
+        <% if Unlike.find_by(user_id: current_user.id, tweet_id: tweet.id) %>
+        <%= link_to("/unlikes/#{tweet.id}/destroy", {method: "post"}) do %>
+          <span class="fa fa-thumbs-down unlike-btn-unlike">negative</span>
+        <% end %>
+        <% else %>
+        <%= link_to("/unlikes/#{tweet.id}/create", {method: "post"}) do %>
+          <span class="fa fa-thumbs-down unlike-btn"></span>
+        <% end %>
+        <% end %><%= tweet.unlikes_count %>
+        <% end %>
+
       </div>
-    <% end %>
-    <%= simple_format(tweet.text) %>
-    <span class="name">
-      <a href="/users/<%= tweet.user_id %>">
-        <%= tweet.user.nickname %>
-      </a>
-    </span>
   </div>
+

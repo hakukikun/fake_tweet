@@ -1,8 +1,7 @@
-<!-- コピペ、コードの意味分からない。統一的なページのHTML部分   -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FakeTweet</title>
+    <title>meem</title>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -23,36 +22,21 @@
   </head>
 
   <body>
+
   <header class="header">
-    <div class="header__bar row">
-      <h1 class="grid-6"><a href="/">FakeTweet</a></h1>
-      <% if user_signed_in? %>
-        <div class="user_nav grid-6">
-          <span><%= current_user.nickname %> <!-- ログイン中のユーザーのニックネームを記述 -->
-            <ul class="user__info">
-              <li>
-                <a href="/users/<%=current_user.id %>">My Page</a>
-                <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-              </li>
-            </ul>
-          </span>
-          <a class="post" href="/tweets/new">Post</a>
-        </div>
-      <% else %>
-        <div class="grid-6">
-          <%= link_to "Log in", new_user_session_path, class: 'post' %>
-          <%= link_to "Sign up", new_user_registration_path, class: 'post' %>
-        </div>
-      <% end %>
-    </div>
+    <div class="header__bar">
+      <span class="logo"><%= render partial: 'common/login_logo' %></span>
   </header>
 
+<div class="container">
     <%= yield %>
-
+</div>
     <footer>
       <p>
-        Copyright FakeTweet 2019.
+        Copyright meem 2019.
       </p>
     </footer>
+
+  </div>
   </body>
 </html>
